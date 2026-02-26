@@ -8,7 +8,7 @@ const singletonActions = new Set(['publish', 'discardChanges', 'restore']);
 
 export default defineConfig({
   name: 'default',
-  title: 'Client Starter',
+  title: 'X3 Sports',
 
   projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID,
   dataset: import.meta.env.PUBLIC_SANITY_DATASET,
@@ -38,7 +38,12 @@ export default defineConfig({
             S.divider(),
             S.documentTypeListItem('page').title('Pages'),
             S.documentTypeListItem('hero').title('Hero Sections'),
-            S.documentTypeListItem('service').title('Services'),
+            S.divider(),
+            S.documentTypeListItem('coach').title('Coaches'),
+            S.documentTypeListItem('classType').title('Class Types'),
+            S.documentTypeListItem('classSchedule').title('Class Schedule'),
+            S.divider(),
+            S.documentTypeListItem('membershipTier').title('Membership Tiers'),
             S.documentTypeListItem('testimonial').title('Testimonials'),
             S.documentTypeListItem('faq').title('FAQ Items'),
           ]),

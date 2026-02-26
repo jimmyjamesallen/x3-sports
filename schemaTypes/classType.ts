@@ -1,8 +1,8 @@
 import { defineType, defineField } from 'sanity';
 
-export const service = defineType({
-  name: 'service',
-  title: 'Service',
+export const classType = defineType({
+  name: 'classType',
+  title: 'Class Type',
   type: 'document',
   fields: [
     defineField({
@@ -23,12 +23,6 @@ export const service = defineType({
       title: 'Description',
       type: 'text',
       rows: 4,
-    }),
-    defineField({
-      name: 'icon',
-      title: 'Icon',
-      type: 'string',
-      description: 'Icon name (e.g., a Lucide or Heroicons name).',
     }),
     defineField({
       name: 'image',

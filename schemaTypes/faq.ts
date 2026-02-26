@@ -25,9 +25,9 @@ export const faq = defineType({
       options: {
         list: [
           { title: 'General', value: 'general' },
-          { title: 'Services', value: 'services' },
-          { title: 'Pricing', value: 'pricing' },
-          { title: 'Support', value: 'support' },
+          { title: 'Classes', value: 'classes' },
+          { title: 'Memberships', value: 'memberships' },
+          { title: 'Training', value: 'training' },
         ],
       },
     }),

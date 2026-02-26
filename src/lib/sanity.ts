@@ -45,21 +45,60 @@ export const queries = {
     ctaLink
   }`,
 
-  allServices: `*[_type == "service"] | order(order asc){
+  allCoaches: `*[_type == "coach"]{
+    name,
+    slug,
+    bio,
+    photo,
+    specialties
+  }`,
+
+  coachBySlug: `*[_type == "coach" && slug.current == $slug][0]{
+    name,
+    slug,
+    bio,
+    photo,
+    specialties
+  }`,
+
+  allClassTypes: `*[_type == "classType"] | order(order asc){
     title,
     slug,
     description,
-    icon,
     image,
     order
   }`,
 
-  serviceBySlug: `*[_type == "service" && slug.current == $slug][0]{
+  classTypeBySlug: `*[_type == "classType" && slug.current == $slug][0]{
     title,
     slug,
     description,
-    icon,
     image
+  }`,
+
+  allClassSchedules: `*[_type == "classSchedule"] | order(day asc, time asc){
+    day,
+    time,
+    classType->{title, slug},
+    coach->{name, slug},
+    duration
+  }`,
+
+  scheduleByDay: `*[_type == "classSchedule" && day == $day] | order(time asc){
+    day,
+    time,
+    classType->{title, slug},
+    coach->{name, slug},
+    duration
+  }`,
+
+  allMembershipTiers: `*[_type == "membershipTier"] | order(order asc){
+    name,
+    price,
+    interval,
+    features,
+    highlighted,
+    order
   }`,
 
   allTestimonials: `*[_type == "testimonial"]{

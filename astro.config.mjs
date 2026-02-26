@@ -4,13 +4,14 @@ import { loadEnv } from 'vite';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import sanity from '@sanity/astro';
-import node from '@astrojs/node';
+import vercel from '@astrojs/vercel';
 
 const env = loadEnv(process.env.NODE_ENV || '', process.cwd(), 'PUBLIC_');
 
 // https://astro.build/config
 export default defineConfig({
-  adapter: node({ mode: 'standalone' }),
+  output: 'server',
+  adapter: vercel(),
 
   integrations: [
     sanity({

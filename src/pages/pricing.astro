@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import PricingCard from '../components/PricingCard.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { client, queries } from '../lib/sanity';
+
+let tiers = null;
+let faqs = null;
+
+try {
+  tiers = await client.fetch(queries.allMembershipTiers);
+  faqs = await client.fetch(queries.allFaqs);
+} catch {
+  // Sanity unavailable — components use hardcoded fallbacks
+}
+---
+
+<Layout title="Pricing | X3 Sports">
+  <PageHeader
+    heading="Simple, Honest Pricing"
+    subheading="No hidden fees. No long-term contracts. Just great training at a fair price."
+  />
+  <PricingCard tiers={tiers} />
+
+  <section class="py-20 px-6 bg-bg-card">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-10">Frequently Asked Questions</h2>
+      <FAQAccordion faqs={faqs} />
+    </div>
+  </section>
+
+  <CTABanner
+    heading="Still Have Questions?"
+    subheading="Drop by the gym or give us a call. We're happy to show you around and answer anything."
+    ctaText="Contact Us"
+    ctaLink="/contact"
+  />
+</Layout>

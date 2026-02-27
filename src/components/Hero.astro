@@ -1,0 +1,66 @@
+---
+interface Props {
+  heading?: string;
+  subheading?: string;
+  ctaText?: string;
+  ctaLink?: string;
+  backgroundImage?: string;
+}
+
+const {
+  heading = "Train Like a Champion",
+  subheading = "Atlanta's premier combat sports and fitness facility. World-class coaching in MMA, boxing, kickboxing, Brazilian Jiu-Jitsu, and more.",
+  ctaText = "Start Your Free Trial",
+  ctaLink = "/free-trial",
+  backgroundImage,
+} = Astro.props;
+---
+
+<section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+  <!-- Background overlay -->
+  <div class="absolute inset-0 bg-gradient-to-b from-bg/60 via-bg/40 to-bg z-10"></div>
+
+  <!-- Background image or gradient fallback -->
+  {backgroundImage ? (
+    <img
+      src={backgroundImage}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+  ) : (
+    <div class="absolute inset-0 bg-gradient-to-br from-accent/20 via-bg to-bg"></div>
+  )}
+
+  <!-- Decorative elements -->
+  <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl z-0"></div>
+  <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-accent/10 rounded-full blur-3xl z-0"></div>
+
+  <div class="relative z-20 max-w-4xl mx-auto px-6 text-center">
+    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6">
+      {heading.split(" ").map((word, i) =>
+        i === heading.split(" ").length - 1 ? (
+          <span class="text-accent">{word}</span>
+        ) : (
+          <>{word} </>
+        )
+      )}
+    </h1>
+    <p class="text-lg md:text-xl text-text-muted max-w-2xl mx-auto mb-10 leading-relaxed">
+      {subheading}
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a
+        href={ctaLink}
+        class="bg-accent hover:bg-accent-hover text-white font-semibold px-8 py-4 rounded-lg text-lg transition-colors"
+      >
+        {ctaText}
+      </a>
+      <a
+        href="/classes"
+        class="border border-border hover:border-text-muted text-text-primary font-semibold px-8 py-4 rounded-lg text-lg transition-colors"
+      >
+        View Classes
+      </a>
+    </div>
+  </div>
+</section>

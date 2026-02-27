@@ -1,0 +1,114 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = Astro.url.pathname } = Astro.props;
+
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Classes", href: "/classes" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Contact", href: "/contact" },
+];
+
+function isActive(href: string, current: string): boolean {
+  if (href === "/") return current === "/";
+  return current.startsWith(href);
+}
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-bg/90 backdrop-blur-md border-b border-border">
+  <nav class="max-w-6xl mx-auto px-6 flex items-center justify-between h-[72px]">
+    <a href="/" class="text-2xl font-bold tracking-tight">
+      <span class="text-accent">X3</span> Sports
+    </a>
+
+    <ul class="hidden md:flex items-center gap-8">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class:list={[
+              "text-sm font-medium transition-colors hover:text-accent",
+              isActive(link.href, currentPath) ? "text-accent" : "text-text-muted",
+            ]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="hidden md:block">
+      <a
+        href="/free-trial"
+        class="bg-accent hover:bg-accent-hover text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors"
+      >
+        Free Trial
+      </a>
+    </div>
+
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden flex flex-col gap-1.5 p-2"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <span class="block w-6 h-0.5 bg-text-primary transition-all duration-300" id="bar1"></span>
+      <span class="block w-6 h-0.5 bg-text-primary transition-all duration-300" id="bar2"></span>
+      <span class="block w-6 h-0.5 bg-text-primary transition-all duration-300" id="bar3"></span>
+    </button>
+  </nav>
+
+  <div id="mobile-menu" class="hidden md:hidden border-t border-border bg-bg/95 backdrop-blur-md">
+    <ul class="flex flex-col px-6 py-4 gap-1">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class:list={[
+              "block py-2.5 text-sm font-medium transition-colors hover:text-accent",
+              isActive(link.href, currentPath) ? "text-accent" : "text-text-muted",
+            ]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+      <li class="pt-2">
+        <a
+          href="/free-trial"
+          class="block text-center bg-accent hover:bg-accent-hover text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors"
+        >
+          Free Trial
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById("mobile-menu-btn");
+  const menu = document.getElementById("mobile-menu");
+  const bar1 = document.getElementById("bar1");
+  const bar2 = document.getElementById("bar2");
+  const bar3 = document.getElementById("bar3");
+
+  btn?.addEventListener("click", () => {
+    const expanded = btn.getAttribute("aria-expanded") === "true";
+    btn.setAttribute("aria-expanded", String(!expanded));
+    menu?.classList.toggle("hidden");
+
+    if (!expanded) {
+      bar1?.classList.add("translate-y-[4px]", "rotate-45");
+      bar2?.classList.add("opacity-0");
+      bar3?.classList.add("-translate-y-[4px]", "-rotate-45");
+    } else {
+      bar1?.classList.remove("translate-y-[4px]", "rotate-45");
+      bar2?.classList.remove("opacity-0");
+      bar3?.classList.remove("-translate-y-[4px]", "-rotate-45");
+    }
+  });
+</script>
